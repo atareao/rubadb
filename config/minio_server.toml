@@ -1,0 +1,23 @@
+[repository]
+repository = "opendal:s3"
+password = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+[repository.options]
+root = "/"
+bucket = "rubadb"
+endpoint = "https://s3.tuservidor.es"
+region = "s3"
+access_key_id = "XXXXXXXXXXXXXXXXXXXXX"
+secret_access_key = "XXXXXXXXXXXXXXXXXXXXX"
+
+[forget]
+keep-daily = 7
+keep-weekly = 4
+keep-monthly = 6
+
+[[backup.snapshots]]
+sources = ["/app/backup/db"]
+
+[backup.snapshots.hooks]
+run-after = ['curl -X "POST" "https://openobserve.tuservidor.es/api/default/archi_backup/_json"  -H "accept: application/json" -H "Authorization: Basic XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"  -H "Content-Type: application/json"  -d "[{\"repository\": \"minio\", \"action\": \"backup\", \"ok\": \"true\"}]"']
+run-failed = ['curl -X "POST" "https://openobserve.tuservidor.es/api/default/archi_backup/_json"  -H "accept: application/json" -H "Authorization: Basic XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"  -H "Content-Type: application/json"  -d "[{\"repository\": \"minio\", \"action\": \"backup\", \"ok\": \"false\"}]"']
