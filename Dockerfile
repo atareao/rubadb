@@ -1,7 +1,7 @@
 ###############################################################################
 ## Rustic builder
 ###############################################################################
-FROM rust:alpine3.21 AS rustic-builder
+FROM rust:alpine3.22 AS rustic-builder
 RUN apk add --update --no-cache \
             autoconf \
             gcc \
@@ -30,10 +30,10 @@ ENV USER=app \
 
 RUN apk add --update \
             --no-cache \
-            curl~=8.12 \
+            curl~=8.13 \
             mariadb-client~=11.4 \
-            postgresql17-client~=17.5 \
-            dcron~=4.5 \
+            postgresql17-client~=17.6 \
+            dcron~=4.6 \
     rm -rf /var/cache/apk && \
     rm -rf /var/lib/app/lists*
 
